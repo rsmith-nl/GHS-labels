@@ -1,0 +1,101 @@
+% file: template.tex
+% vim:fileencoding=utf-8:ft=tex
+% LaTeX sourcecode file for making 105x74 stickers for chemicals.
+% according to the GHS.
+%
+% Written by R.F. Smith <rsmith@xs4all.nl> in 2010 and placed in the
+% public domain.
+%%%%%%%%%%%% Contents of the sticker; change these to suit you %%%%%%%%%%%%%%
+% \Chemname should contain the product identifier for the substance, use
+% \huge, or Large if the name doesn't fit.
+\newcommand{\Chemname}{\huge Ethanol}
+% \Signal contains the signal word
+\newcommand{\Signal}{DANGER}
+% Possibilities for First/Second/Third/Fourth Symbol:
+%       Symbol          English text            Dutch text
+%       in figures/
+% GHS01 explos.pdf      explosive               explosiegevaar
+% GHS02 flamme.pdf      flammable               brandgevaarlijk
+% GHS03 rondflam.pdf    oxidyzing               brandbevorderend
+% GHS04 bottle.pdf      gasses under pressure   houder onder druk
+% GHS05 acid.pdf        corrosive               bijtend
+% GHS06 skull.pdf       toxic                   giftig
+% GHS07 exclam.pdf      harmfull                schadelijk
+% GHS08 silhouete.pdf   mutagen/carcinogen      lange termijn gez. schade
+% GHS09 pollu.pdf       aquatic toxicity        mileugevaarlijk
+%
+% The next three lines select the three symbols that can go on the sticker.
+% Leave those that you don't want to use undefined.
+\newcommand{\FirstSymbol}{figures/flamme}
+\newcommand{\SecondSymbol}{figures/exclam}
+%\newcommand{\ThirdSymbol}{figures/exclam}
+%\newcommand{\FourthSymbol}{figures/exclam}
+% Size of the text. Try \small, \footnotesize, \scriptsize or \tiny depending
+% on the amount of text.
+\newcommand{\txtsize}{\small}
+% Next are the hazard and precautionary statements and additional
+% information. You should be able to find them on the MSDS for the
+% substance.
+\newcommand{\Hazards}{%
+H225: Highly flammable liquid and vapour.\\
+H319: Causes serious eye irritation.\\
+}
+\newcommand{\Precautions}{%
+P201: Keep away from heat/sparks/open flames/hot surfaces. -- No smoking.\\
+P233: Keep container tightly closed.\\
+P243: Take precautionary measures against static discharge.\\
+P280: Wear protective gloves / protective clothing / eye protection /
+face protection.\\
+P403+235: Store in a well ventilated place. Keep cool.\\
+}
+\newcommand{\Additionals}{%
+}
+% The name, address and phone number of the supplier should go here.
+\newcommand{\Firm}{Supplier -- Streetname 1, Town\\
+  tel. 012-3456789}
+\newcommand{\filedate}{\number\year-\number\month-\number\day}
+%%%%%%%%%% Normally no changes are equired below here %%%%%%%%%%
+\documentclass[a4paper]{article}
+\usepackage{times}
+%\usepackage[english,german,dutch]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage{labels}
+% Settings for the label package; 8 105x74 stickers on an A4 page.
+\LabelCols=2%
+\LabelRows=4%
+\LeftBorder=-10mm%
+\RightBorder=0mm%
+\TopBorder=1mm%
+\BottomBorder=0mm%
+\numberoflabels=8%
+%\LabelGridtrue
+%%%%%%%%%%%%%%%%%%%%%% Start of the document %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\genericlabel{%
+  \raisebox{29mm}{\parbox[t][65mm][t]{90mm}{
+    \textbf{\Chemname}\\
+    \parbox[t][60mm][t]{15mm}{\mbox{}\\
+      \ifthenelse{\isundefined{\FirstSymbol}}{}{%
+        \resizebox{14mm}{!}{\includegraphics{\FirstSymbol}}}
+      \ifthenelse{\isundefined{\SecondSymbol}}{}{%
+        \resizebox{14mm}{!}{\includegraphics{\SecondSymbol}}}
+      \ifthenelse{\isundefined{\ThirdSymbol}}{}{%
+        \resizebox{14mm}{!}{\includegraphics{\ThirdSymbol}}}
+      \ifthenelse{\isundefined{\FourthSymbol}}{}{%
+        \resizebox{14mm}{!}{\includegraphics{\FourthSymbol}}}
+    }\hspace{1pt}%
+    \parbox[t][61mm][t]{82mm}{\txtsize
+      \textbf{\normalsize\Signal}\\[2pt]
+      {\Hazards}\\[2pt]
+      {\Precautions}\\[2pt]
+      {\Additionals}\\
+      \vfill
+      \rule[2pt]{82mm}{.5pt}\\
+      \tiny\Firm\hfill\filedate
+    }%
+  }}%
+}
+%%%%%%%%%%%%%% End of the document contents %%%%%%%%%%%%%%%%%%%
+\end{document}
