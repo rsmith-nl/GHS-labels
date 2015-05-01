@@ -33,6 +33,13 @@ These labels are meant for containers up to 25 liters.
 
 .. _LaTeX: http://www.latex-project.org/
 
+License
+-------
+
+To the extent possible under law, <rsmith@xs4all.nl> has waived all copyright and
+related or neighboring rights to template-A4.tex. This work is published
+from the Netherlands. See http://creativecommons.org/publicdomain/zero/1.0/
+
 How it works
 ------------
 
