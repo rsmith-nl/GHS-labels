@@ -1,18 +1,20 @@
 % file: template-A4.tex
 % vim:fileencoding=utf-8:ft=tex
+% LaTeX sourcecode file for making 105x74 stickers for chemicals.
+% according to the GHS.
 %
-% Author: R.F. Smith <rsmith@xs4all.nl>
-% Created: Sun Oct 3 18:27:56 2010
-%
-% To the extent possible under law, <rsmith@xs4all.nl> has waived all copyright and
-% related or neighboring rights to template-A4.tex. This work is published
-% from the Netherlands. See http://creativecommons.org/publicdomain/zero/1.0/
+% Written by R.F. Smith <rsmith@xs4all.nl> in 2010 and placed in the
+% public domain.
+% Last modified: 2022-01-15T17:44:56+0100
 %%%%%%%%%%%% Contents of the sticker; change these to suit you %%%%%%%%%%%%%%
 % \Chemname should contain the product identifier for the substance, use
 % \huge, or Large if the name doesn't fit.
-\newcommand{\Chemname}{\huge }
+\newcommand{\Chemname}{\huge SubstanceName}
+% \Contains should contain the name of the main ingredient referenced on the
+% material safety data sheet.
+\newcommand{\Contains}{methylethylketonperoxide}
 % \Signal contains the signal word
-\newcommand{\Signal}{Waarschuwing}
+\newcommand{\Signal}{Warning}
 % Possibilities for First/Second/Third/Fourth Symbol:
 %       Symbol          English text            Dutch text
 %       in figures/
@@ -50,27 +52,33 @@
 \newcommand{\filedate}{\number\year-\number\month-\number\day}
 %%%%%%%%%% Normally no changes are equired below here %%%%%%%%%%
 \documentclass[a4paper]{article}
-\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{ifthen}
 \usepackage{graphicx}
-\usepackage{labels}
+\usepackage[newdimens]{labels}
 % Settings for the label package; 8 105x74 stickers on an A4 page.
 \LabelCols=2%
 \LabelRows=4%
-\LeftBorder=-10mm%
-\RightBorder=0mm%
-\TopBorder=1mm%
-\BottomBorder=0mm%
+\LeftPageMargin=5mm%
+\RightPageMargin=5mm%
+\TopPageMargin=5mm%
+\BottomPageMargin=5mm%
+\TopLabelBorder=0mm
+\BottomLabelBorder=0mm
+\LeftLabelBorder=1mm
+\RightLabelBorder=1mm
 \numberoflabels=8%
-%\LabelGridtrue
+%\LabelInfotrue
+\LabelGridtrue
 %%%%%%%%%%%%%%%%%%%%%% Start of the document %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \genericlabel{%
-  \raisebox{29mm}{\parbox[t][65mm][t]{90mm}{
-    \textbf{\Chemname}\\
-    \parbox[t][60mm][t]{15mm}{\mbox{}\\
+    \parbox[t][67.5mm][t]{97mm}{
+        \rule{0pt}{5.5mm}\textbf{\Chemname}\\
+        Bevat: \Contains\\[-2mm]
+    \parbox[t][54mm][t]{15mm}{\mbox{}\\
       \ifthenelse{\isundefined{\FirstSymbol}}{}{%
         \resizebox{14mm}{!}{\includegraphics{\FirstSymbol}}}
       \ifthenelse{\isundefined{\SecondSymbol}}{}{%
@@ -80,16 +88,19 @@
       \ifthenelse{\isundefined{\FourthSymbol}}{}{%
         \resizebox{14mm}{!}{\includegraphics{\FourthSymbol}}}
     }\hspace{1pt}%
-    \parbox[t][61mm][t]{82mm}{\txtsize
+    \parbox[t][54mm][t]{77mm}{\mbox{}\\\txtsize
       \textbf{\normalsize\Signal}\\[2pt]
+      % Gevaren
       {\Hazards}\\[2pt]
+      % Voorzorgsmaatergelen
       {\Precautions}\\[2pt]
+      % Aanvullende informatie
       {\Additionals}\\
       \vfill
-      \rule[2pt]{82mm}{.5pt}\\
+      \rule[2pt]{77mm}{.5pt}\\
       \tiny\Firm\hfill\filedate
     }%
-  }}%
+  }%
 }
 %%%%%%%%%%%%%% End of the document contents %%%%%%%%%%%%%%%%%%%
 \end{document}
